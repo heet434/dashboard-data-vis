@@ -1,6 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import 'antd/dist/antd.css';
+import ReactDOM from 'react-dom/client';
+import 'antd/dist/reset.css';
 import Dashboard from './Dashboard';
 
-ReactDOM.render(<Dashboard />, document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <Dashboard />
+);
