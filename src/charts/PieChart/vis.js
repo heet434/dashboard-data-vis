@@ -2,19 +2,15 @@ import * as d3 from 'd3';
 
 const draw = (props) => {
     const data = props.data;
-    const gender = ['Male', 'Female', 'Unknown'];
+    const species = ['setosa', 'versicolor', 'virginica'];
     let count = new Array(3).fill(0);
     data.forEach(d => {
-        let genderIndex = gender.indexOf(d.gender);
-        if (genderIndex + 1)
-            count[genderIndex] += 1;
+        count[species.indexOf(d.species)]++;
     });
 
-    const dataset = [
-        { label: 'Male', count: count[0] },
-        { label: 'Female', count: count[1] },
-        { label: 'Unknown', count: count[2] }
-    ]
+    let dataset = species.map((d, i) => {
+        return { label: d, count: count[i] };
+    });
 
     d3.select('.vis-piechart > *').remove();
     const margin = { top: 10, right: 20, bottom: 30, left: 40 };
