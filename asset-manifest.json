@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/dashboard-iris/static/css/main.4e7e53dd.css",
+    "main.js": "/dashboard-iris/static/js/main.f368d0f8.js",
+    "static/media/setosa.jpg": "/dashboard-iris/static/media/setosa.0b8da9ea4c928fc05c68.jpg",
+    "static/media/versicolor.jpeg": "/dashboard-iris/static/media/versicolor.fd96da0139b659d8051b.jpeg",
+    "static/media/virginica.jpeg": "/dashboard-iris/static/media/virginica.85840877df4478858b43.jpeg",
+    "index.html": "/dashboard-iris/index.html",
+    "main.4e7e53dd.css.map": "/dashboard-iris/static/css/main.4e7e53dd.css.map",
+    "main.f368d0f8.js.map": "/dashboard-iris/static/js/main.f368d0f8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4e7e53dd.css",
+    "static/js/main.f368d0f8.js"
+  ]
+}
