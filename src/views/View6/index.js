@@ -4,23 +4,22 @@ import './view6.css';
 
 export default class View6 extends Component {
 
-    selectUser = (user) => {
-        this.props.changeSelectUser(user);
+    selectSpecies = species => {
+        const {changeSelectedSpecies} = this.props;
+        changeSelectedSpecies(species);
     }
 
     render() {
-        const {data} = this.props;
+        const {selectedSpeciesData} = this.props;
         return (
             <div id='view6' className='pane'>
-                <div className='header'>User List</div>
+                <div className='header'>Species List</div>
                 <List
                     size="small"
                     bordered
-                    dataSource={data}
-                    renderItem={user => <List.Item onClick = {() => this.selectUser(user)}>
-                        <div>
-                            {user.name + ':' + user.age}
-                        </div>
+                    dataSource={selectedSpeciesData}
+                    renderItem={item => <List.Item onClick={() => this.selectSpecies(item)} className='list-item'>
+                        {item.species}
                     </List.Item>}
                 />
             </div>

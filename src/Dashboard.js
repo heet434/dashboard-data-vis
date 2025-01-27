@@ -17,6 +17,14 @@ export default class Dashboard extends Component {
         super(props);
         this.state = {
             selectedSpecies: irisData[0],
+            xAxis: 'sepalLength',
+            yAxis: 'sepalWidth',
+            greaterThanSepalLength: 0,
+            greaterThanPetalLength: 0,
+            greaterThanSepalWidth: 0,
+            greaterThanPetalWidth: 0,
+            // all species included by default
+            includedSpecies: ['setosa', 'versicolor', 'virginica']
         }
     }
 
@@ -25,15 +33,59 @@ export default class Dashboard extends Component {
             selectedSpecies: species
         })
     }
+    handleXAxisChange = e => {
+        this.setState({
+            xAxis: e.target.value
+        })
+    }
+    handleYAxisChange = e => {
+        this.setState({
+            yAxis: e.target.value
+        })
+    }
+    // changeGreaterThanSepalLength = e => {
+    //     this.setState({
+    //         greaterThanSepalLength: e.target.value
+    //     })
+    // }
+    // changeGreaterThanPetalLength = e => {
+    //     this.setState({
+    //         greaterThanPetalLength: e.target.value
+    //     })
+    // }
+    // changeGreaterThanSepalWidth = e => {
+    //     this.setState({
+    //         greaterThanSepalWidth: e.target.value
+    //     })
+    // }
+    // changeGreaterThanPetalWidth = e => {
+    //     this.setState({
+    //         greaterThanPetalWidth: e.target.value
+    //     })
+    // }
+    changeIncludedSpecies = e => {
+        this.setState({
+            includedSpecies: e
+        })
+    }
+
+
 
     render() {
-        // const {selectedUser, greaterThenAge, includedGender} = this.state;
         const {selectedSpecies} = this.state;
-        // const filteredData = data.filter(user=>includedGender.indexOf(user.gender)!==-1)
-        //                          .filter(user=>user.age>greaterThenAge);
 
-        // set species with avg sepal length, avg sepal width, avg petal length, avg petal width and count
-        const avgData = irisData.reduce((acc, species) => {
+        // filter the data based on the selected species, greater than values and included species
+        const filteredData = irisData.filter(species => {
+            return species.sepalLength > this.state.greaterThanSepalLength &&
+                species.petalLength > this.state.greaterThanPetalLength &&
+                species.sepalWidth > this.state.greaterThanSepalWidth &&
+                species.petalWidth > this.state.greaterThanPetalWidth &&
+                this.state.includedSpecies.includes(species.species);
+        });
+
+
+
+        const avgData = filteredData.reduce((acc, species) => {
             if (!acc[species.species]) {
                 acc[species.species] = { sepalLength: 0, sepalWidth: 0, petalLength: 0, petalWidth: 0, count: 0 };
             }
@@ -55,39 +107,43 @@ export default class Dashboard extends Component {
         });
 
         const selectedSpeciesData = avgData[selectedSpecies.species];
+        const selectedSpeciesDataArray = Object.keys(avgData).map(species => avgData[species]);
 
 
 
         return (
             <div>
-                <Layout style={{ height: 920 }}>
+                <Layout style={{ height: 820 }}>
                     <Sider width={400} style={{backgroundColor:'#eee'}}>
                         <Content style={{ height: 200 }}>
                             <View1 species={selectedSpeciesData}/>
                         </Content>
                         <Content style={{ height: 300 }}>
-                            <View2 data={irisData}/>
+                            <View2 data={filteredData}/>
                         </Content>
-                        {/* <Content style={{ height: 400 }}>
+                        <Content style={{ height: 50 }}>
                             <View3 
-                                changeGreaterThenAge={this.changeGreaterThenAge}
-                                changeIncludedGender={this.changeIncludedGender}
+                                changeGreaterThanSepalLength={this.changeGreaterThanSepalLength}
+                                changeGreaterThanPetalLength={this.changeGreaterThanPetalLength}
+                                changeGreaterThanSepalWidth={this.changeGreaterThanSepalWidth}
+                                changeGreaterThanPetalWidth={this.changeGreaterThanPetalWidth}
+                                changeIncludedSpecies={this.changeIncludedSpecies}
                             />
-                        </Content> */}
-                    </Sider>
-                    {/* <Layout>
-                        <Content style={{ height: 300 }}>
-                            <View4 user={selectedUser}/>
                         </Content>
-                        <Layout style={{ height: 600 }}>
+                    </Sider>
+                    <Layout>
+                        {/* <Content style={{ height: 300 }}>
+                            <View4 data={irisData}/>
+                        </Content> */}
+                        <Layout style={{ height: 820 }}>
                             <Content>
-                                <View5 data={filteredData}/>
+                                <View5 irisData={filteredData} height={670} width={780} xAxis={this.state.xAxis} yAxis={this.state.yAxis} handleXAxisChange={this.handleXAxisChange} handleYAxisChange={this.handleYAxisChange}/>
                             </Content>
                             <Sider width={300} style={{backgroundColor:'#eee'}}>
-                                <View6 data={filteredData} changeSelectUser={this.changeSelectUser}/>
+                                <View6 selectedSpeciesData={selectedSpeciesDataArray} changeSelectedSpecies={this.changeSelectedSpecies}/>
                             </Sider>
                         </Layout>
-                    </Layout> */}
+                    </Layout>
                 </Layout>
             </div>
         )

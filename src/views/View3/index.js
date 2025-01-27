@@ -4,8 +4,8 @@ import './view3.css';
 
 const CheckboxGroup = Checkbox.Group;
 
-const plainOptions = ['Male', 'Female', 'Unknown'];
-const defaultCheckedList = ['Male', 'Female', 'Unknown'];
+const plainOptions = ['setosa', 'versicolor', 'virginica'];
+const defaultCheckedList = ['setosa', 'versicolor', 'virginica'];
 
 export default class View3 extends Component {
 
@@ -24,7 +24,7 @@ export default class View3 extends Component {
             indeterminate: !!checkedList.length && checkedList.length < plainOptions.length,
             checkAll: checkedList.length === plainOptions.length,
         });
-        this.props.changeIncludedGender(checkedList);
+        this.props.changeIncludedSpecies(checkedList);
     };
 
     onCheckAllChange = e => {
@@ -34,18 +34,27 @@ export default class View3 extends Component {
             indeterminate: false,
             checkAll: e.target.checked,
         });
-        this.props.changeIncludedGender(checkedList);
+        this.props.changeIncludedSpecies(checkedList);
     };
 
-    onChangeSilder = value => {
-        this.props.changeGreaterThenAge(value);
+    onChangeSlider1 = value => {
+        this.props.changeGreaterThanSepalLength(value);
+    }
+    onChangeSlider2 = value => {
+        this.props.changeGreaterThanPetalLength(value);
+    }
+    onChangeSlider3 = value => {
+        this.props.changeGreaterThanSepalWidth(value);
+    }
+    onChangeSlider4 = value => {
+        this.props.changeGreaterThanPetalWidth(value);
     }
 
     render() {
         return (
             <div id='view3' className='pane'>
                 <div className='header'>Filter</div>
-                <h3>Gender</h3>
+                <h3>Species</h3>
                 <div style={{ width: 275, margin: 5 }}>
                     <Checkbox
                         indeterminate={this.state.indeterminate}
@@ -63,9 +72,18 @@ export default class View3 extends Component {
                         onChange={this.onChangeCheckbox}
                     />
                 </div>
+                {/* <Divider />
+                <h3>Greater Than Sepal Length</h3>
+                <Slider defaultValue={0} onChange={this.onChangeSilder1}/>
                 <Divider />
-                <h3>Age</h3>
-                <Slider defaultValue={0} onChange={this.onChangeSilder}/>
+                <h3>Greater Than Petal Length</h3>
+                <Slider defaultValue={0} onChange={this.onChangeSilder2}/>
+                <Divider />
+                <h3>Greater Than Sepal Width</h3>
+                <Slider defaultValue={0} onChange={this.onChangeSilder3}/>
+                <Divider />
+                <h3>Greater Than Petal Width</h3>
+                <Slider defaultValue={0} onChange={this.onChangeSilder4}/> */}
             </div>
         )
     }
